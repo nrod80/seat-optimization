@@ -35,7 +35,7 @@ module.exports = function(currentSeats, pairs) {
   }
 
 
-
+  //placing the students into their final spots
   currentSeats.forEach(function(student, index, array) {
     if (index % 2 && pairs[student] === array[index + 1]) {
       finalPlacement[index - 1] = student;
@@ -52,6 +52,8 @@ module.exports = function(currentSeats, pairs) {
 
   let cost = 0;
 
+
+  //calculate the cost of the final arrangement
   finalPlacement.forEach((student, index) => {
     console.log(studentDistances[student][index])
     cost += Number(studentDistances[student][index])
@@ -61,7 +63,7 @@ module.exports = function(currentSeats, pairs) {
 
 
 
-  console.log(finalPlacement, finalPlacement.length)
+  console.log('FINAL PLACEMENT: ', finalPlacement, finalPlacement.length)
 
   console.log('COST: ', cost)
 
