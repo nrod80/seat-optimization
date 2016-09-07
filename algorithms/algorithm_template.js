@@ -14,5 +14,5 @@
 
 module.exports = function(currentSeats, pairs){
 
-	return finalPlacementArray
+	return finalPlacementArray;
 }

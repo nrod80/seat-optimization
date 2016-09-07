@@ -12,8 +12,8 @@ let randomPairs, finalPlacement;
 describe('seat optimization', function(){
   describe('returns an array that', function(){
     beforeEach(function(){
-      randomPairs = getRandomPairs(currentSeats)
-      finalPlacement = optimize(currentSeats, randomPairs)
+      randomPairs = getRandomPairs(utils.currentSeats.slice())
+      finalPlacement = optimize(utils.currentSeats.slice(), randomPairs)
     })
 
     it('has a length of 14', function(){

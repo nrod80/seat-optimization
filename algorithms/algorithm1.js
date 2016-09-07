@@ -1,28 +1,26 @@
 'use strict';
 
 
-module.exports = function (currentSeats, pairs) {
+module.exports = function(currentSeats, pairs) {
+  const originalSeats = currentSeats.slice()
+
   //the array which will become the final place
   let finalPlacement = [];
-  let currentSeatsCopy = currentSeats.slice(0);
-
-  currentSeats.forEach(function(_, index) {
+  for (var i = 0; i < currentSeats.length; i++) {
     // skip each odd index
-    if(index % 2===1) return;
-
-    if (pairs[currentSeatsCopy[index]] === currentSeatsCopy[index + 1]) {
-      finalPlacement[index] = currentSeatsCopy[index];
-      finalPlacement[index + 1] = currentSeatsCopy[index + 1];
+    if (i % 2 === 1) {
+      continue
+    } else if (pairs[currentSeats[i]] === currentSeats[i + 1]) {
+      finalPlacement[i] = currentSeats[i];
+      finalPlacement[i + 1] = currentSeats[i + 1];
     } else {
-      finalPlacement[index] = currentSeatsCopy[index];
-      let temp = currentSeatsCopy[index + 1];
-      finalPlacement[index + 1] = pairs[currentSeatsCopy[index]];
-      currentSeatsCopy[currentSeatsCopy.indexOf(pairs[currentSeatsCopy[index]])] = temp;
-      currentSeatsCopy[index + 1] = pairs[currentSeatsCopy[index]]
+      finalPlacement[i] = currentSeats[i];
+      let temp = currentSeats[i + 1];
+      finalPlacement[i + 1] = pairs[currentSeats[i]];
+      currentSeats[currentSeats.indexOf(pairs[currentSeats[i]])] = temp;
+      currentSeats[i + 1] = pairs[currentSeats[i]]
     }
-  }) 
-
+  }
+  require('../cost')(originalSeats, finalPlacement)
   return finalPlacement
 }
-
-
