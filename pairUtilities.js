@@ -1,55 +1,64 @@
-const currentSeats = ['NickR', 'Doug', 'NickD', 'Kevin',
-                      'Alex', 'ChrisL', 'Jessica', 'Yi',
-                      'Ryan', 'Connie', 'Gio', 'Peter',
-                      'ChrisC', 'Walter']
+var Pairs = {};
 
-const perfectPairs = {
-	NickR: 'Doug',
-	Doug: 'NickR',
-	NickD: 'Kevin',
-	Kevin: 'NickD',
-	Alex: 'ChrisL',
-	ChrisL: 'Alex',
-	Jessica: 'Yi',
-	Yi: 'Jessica',
-	Ryan: 'Connie',
-	Connie: 'Ryan',
-	Gio: 'Peter',
-	Peter: 'Gio',
-	ChrisC: 'Walter',
-	Walter: 'ChrisC'
+Pairs.currentSeats = ['NickR', 'Doug', 'NickD', 'Kevin',
+  'Alex', 'ChrisL', 'Jessica', 'Yi',
+  'Ryan', 'Connie', 'Gio', 'Peter',
+  'ChrisC', 'Walter'
+]
+
+Pairs.perfectPairs = {
+  NickR: 'Doug',
+  Doug: 'NickR',
+  NickD: 'Kevin',
+  Kevin: 'NickD',
+  Alex: 'ChrisL',
+  ChrisL: 'Alex',
+  Jessica: 'Yi',
+  Yi: 'Jessica',
+  Ryan: 'Connie',
+  Connie: 'Ryan',
+  Gio: 'Peter',
+  Peter: 'Gio',
+  ChrisC: 'Walter',
+  Walter: 'ChrisC'
 }
 
-module.exports = {currentSeats, perfectPairs}
+Pairs.randomPairs = function() {
+  return getRandomPairs(Pairs.currentSeats.slice())
+}
 
-  // //an object of each student's distance to all seats
-  // const studentDistances = getDistances();
+function getRandomPairs(studentArrayToShuffle) {
+  let pairs = {};
 
-  // // determine each student's distance to the other students
-  // function getDistances() {
-  //   let distances = {};
-  //   currentSeats.forEach((student, index) => {
-  //     let individualDistances = {};
-  //     for (let i = 0; i < currentSeats.length; i++) {
-  //       if (index > i && index - i < 7)
-  //         individualDistances[i] = index - i;
-  //       else if (index > i && index - i > 7)
-  //         individualDistances[i] = 14 - (index - i)
-  //       else if (index < i && i - index > 7)
-  //         individualDistances[i] = 14 - (i - index)
-  //       else
-  //         individualDistances[i] = Math.abs(i - index)
-  //     }
-  //     distances[student] = individualDistances;
+  shuffle(studentArrayToShuffle).forEach(function(student, index, mixedArray) {
+    if (index % 2 === 0) {
+      pairs[student] = mixedArray[index + 1]
+    } else {
+      pairs[student] = mixedArray[index - 1]
+    }
+  })
+  return pairs;
+}
 
-  //   })
-  //   // console.log(distances)
-  //   return distances;
-  // }
+function shuffle(array) {
+  let currentIndex = array.length,
+    temporaryValue, randomIndex
 
-  // let cost = 0;
-  // //calculate the cost of the final arrangement
-  // finalPlacement.forEach((student, index) => {
-  //   // console.log(studentDistances[student][index])
-  //   cost += Number(studentDistances[student][index])
-  // })
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
+
+module.exports = Pairs
