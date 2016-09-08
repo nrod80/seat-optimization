@@ -4,7 +4,7 @@
 const expect = require('chai').expect;
 
 const utils = require('./pairUtilities');
-const getRandomPairs = require('./randomPairs');
+const getRandomPairs = utils.randomPairs
 const chalk = require('chalk')
 const columnify = require('columnify')
 
@@ -22,9 +22,10 @@ describe('seat optimization', function(){
       return {currentSeats: utils.currentSeats.slice(), randomPairs, finalPlacement}
     }
 
+
     it('has a length of 14', function(){
       let lengthArr = [];
-      for (let i = 0; i < 1000; i++){
+      for (let i = 0; i < 20000; i++){
         lengthArr.push(getOptimizedObj().finalPlacement.length)
       }
       expect(lengthArr.every(length => length === 14)).to.be.true;
@@ -32,7 +33,7 @@ describe('seat optimization', function(){
 
     it('has all unique values', function(){
       let valueBucket = [];
-      for (let i = 0; i < 1000; i++){
+      for (let i = 0; i < 20000; i++){
         valueBucket.push(getOptimizedObj().finalPlacement)
       }
       expect(
@@ -48,7 +49,7 @@ describe('seat optimization', function(){
 
     it('correctly sits everyone next to their partner', function(){
       let valueBucket = [];
-      for (let i = 0; i < 1000; i++){
+      for (let i = 0; i < 20000; i++){
         valueBucket.push(getOptimizedObj())
       }
       expect(
@@ -73,7 +74,7 @@ describe('seat optimization', function(){
 
     it('keeps at least 7 people sitting', function(){
       let valueBucket = [];
-      for (let i = 0; i < 1000; i++){
+      for (let i = 0; i < 20000; i++){
         valueBucket.push(getOptimizedObj())
       }
       expect(
@@ -85,12 +86,13 @@ describe('seat optimization', function(){
           if (stayedInSeats >= 7) return true;
           // uncomment line below to log before and after seats that is not >= 7
           // console.log(chalk.red(columnify(objectifier(finalObj))))
+          //
           return false
         })
       ).to.be.true;
     })
 
-    xit("doesn't modify perfect pairings", function(){
+    it("doesn't modify perfect pairings", function(){
       finalPlacement = optimize(utils.currentSeats, utils.perfectPairs)
       for(let i = 0; i < finalPlacement.length; i++){
         expect(finalPlacement[i]).to.equal(utils.currentSeats[i])

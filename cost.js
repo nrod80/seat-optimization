@@ -4,6 +4,7 @@ module.exports = function(originalSeats, finalSeats) {
   var cost = 0;
   originalSeats.forEach((student, index) => {
     let finalIdx = finalSeats.indexOf(student);
+    if (index !== finalIdx) cost += 5;
     if (index > finalIdx && index - finalIdx < 7) {
       cost += index - finalIdx;
     }
@@ -18,6 +19,7 @@ module.exports = function(originalSeats, finalSeats) {
     }
   })
 
-  fs.appendFile('./history.txt', originalSeats + '  -->  \n' + finalSeats + ' : \n' + cost + '\n\n')
+  fs.appendFile('./history.txt', cost + '\n')
   return cost
 }
+
