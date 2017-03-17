@@ -1,4 +1,4 @@
-var fs = require('fs')
+// var fs = require('fs')
 
 module.exports = function(originalSeats, finalSeats) {
   var cost = 0;
@@ -19,7 +19,7 @@ module.exports = function(originalSeats, finalSeats) {
     }
   })
 
-  fs.appendFile('./history.txt', cost + '\n')
+//   fs.appendFile('./history.txt', cost + '\n')
   return cost
 }
 
